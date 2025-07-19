@@ -3,10 +3,6 @@ import styles from './calendar.module.css'
 export default function Calendar() {
 
   const testData = [
-    {day: 1},
-    {day: 2},
-    {day: 3},
-    {day: 4},
     {day: 5},
     {day: 6},
     {day: 7},
@@ -17,22 +13,34 @@ export default function Calendar() {
     {day: 5},
     {day: 6},
     {day: 7},
+    {day: 1},
+    {day: 2},
+    {day: 3},
+    {day: 4},
   ]
 
   const row = new Array(5).fill(0)
+  let count = 0;
 
   function populateColumns() {
-    let count = 0;
     let tempArr = new Array;
 
-    for (let col=count; col<7; ++col) {
-      if (testData[col].day > 7) {
-        break;
+    while(count < testData.length) {
+
+      for (let col=0; col<7; ++col) {
+        if (testData[col].day > 7) {
+          break;
+        }
+        count += 1;
+        
+        tempArr.push(
+          <div className={styles['test']}
+            style={{gridColumn: testData[col].day}}
+          >
+            {count}
+          </div>
+        )
       }
-      count += 1;
-      tempArr.push(
-        <div className={styles['test']}>{testData[col].day}</div>
-      )
     }
     return tempArr
   }
