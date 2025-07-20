@@ -3,48 +3,75 @@ import styles from './calendar.module.css'
 export default function Calendar() {
 
   const testData = [
-    {day: 5},
-    {day: 6},
-    {day: 7},
-    {day: 1},
-    {day: 2},
-    {day: 3},
-    {day: 4},
-    {day: 5},
-    {day: 6},
-    {day: 7},
-    {day: 1},
-    {day: 2},
-    {day: 3},
-    {day: 4},
+    {day: 'thu',
+     digit: 5},
+    {day: 'fri',
+     digit: 6},
+    {day: 'sat',
+     digit: 7},
+    {day: 'sun',
+     digit: 1},
+    {day: 'mon',
+     digit: 2},
+    {day: 'tue',
+     digit: 3},
+    {day: 'wed',
+     digit: 4},
+    {day: 'thu',
+     digit: 5},
+    {day: 'fri',
+     digit: 6},
+    {day: 'sat',
+     digit: 7},
+    {day: 'sun',
+     digit: 1},
+    {day: 'mon',
+     digit: 2},
+    {day: 'tue',
+     digit: 3},
+    {day: 'wed',
+     digit: 4},
   ]
+ 
+  // create temp array of size 7 with no values
+  // get first index of test data
+  // slice using digit of 1st index as start, and digit-7 as end
+  // fill temp array with the sliced array 
+  let currIndex = 0;
 
-  const row = new Array(5).fill(0)
-  let count = 0;
 
   function populateColumns() {
-    let tempArr = new Array;
+    let colArr = new Array;
+    for (let i=0; i<7; ++i) {
+      if (!testData[currIndex]) {
+        break;
+      }
 
-    while(count < testData.length) {
-
-      for (let col=0; col<7; ++col) {
-        if (testData[col].day > 7) {
-          break;
-        }
-        count += 1;
-        
-        tempArr.push(
-          <div className={styles['test']}
-            style={{gridColumn: testData[col].day}}
-          >
-            {count}
-          </div>
+      if (testData[currIndex].digit==i+1) {
+        colArr.push(
+          <div className={styles['test']}>{currIndex+1}</div>
+        )
+        currIndex += 1;
+      } else {
+        colArr.push(
+          <div className={styles['test2']}></div>
         )
       }
     }
-    return tempArr
+
+    console.log(colArr)
+    return colArr
   }
 
+  function populateRows() {
+    const row = new Array(5).fill(0)
+    const rows = row.map(()=>{
+      return <div className={styles['calendar-columns']}>{populateColumns()}</div>
+    })
+
+    return <>{rows}</>
+  }
+  
   return (
     <div className={styles['calendar-container']}>
       <div className={styles['calendar-days']}>
@@ -57,15 +84,7 @@ export default function Calendar() {
         <div className={styles['test']}>Sat</div>
       </div>
       <div className={styles['calendar-rows']}>
-        {
-          row.map(()=>{
-            return (
-              <div className={styles['calendar-columns']}>
-                {populateColumns()}
-              </div>
-            )
-          })
-        }
+        {populateRows()}
       </div>
     </div>
   )
