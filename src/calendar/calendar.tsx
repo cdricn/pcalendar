@@ -37,25 +37,25 @@ export default function Calendar() {
   // get first index of test data
   // slice using digit of 1st index as start, and digit-7 as end
   // fill temp array with the sliced array 
-  let currIndex = 0;
+  let currentDay = 0;
 
 
   function populateColumns() {
     let colArr = new Array;
     for (let i=0; i<7; ++i) {
-      if (!testData[currIndex]) {
+      if (!testData[currentDay]) {
         break;
       }
 
-      if (testData[currIndex].digit==i+1) {
+      if (testData[currentDay].digit==i+1) {
         colArr.push(
-          <div className={styles['test']}>{currIndex+1}</div>
+          <div className={styles['calendar-item']}
+            style={{gridColumnStart: testData[currentDay].digit}}
+          >
+            {currentDay+1}
+          </div>
         )
-        currIndex += 1;
-      } else {
-        colArr.push(
-          <div className={styles['test2']}></div>
-        )
+        currentDay += 1;
       }
     }
 
@@ -75,13 +75,13 @@ export default function Calendar() {
   return (
     <div className={styles['calendar-container']}>
       <div className={styles['calendar-days']}>
-        <div className={styles['test']}>Sun</div>
-        <div className={styles['test']}>Mon</div>
-        <div className={styles['test']}>Tue</div>
-        <div className={styles['test']}>Wed</div>
-        <div className={styles['test']}>Thu</div>
-        <div className={styles['test']}>Fri</div>
-        <div className={styles['test']}>Sat</div>
+        <div className={styles['calendar-item']}>Sun</div>
+        <div className={styles['calendar-item']}>Mon</div>
+        <div className={styles['calendar-item']}>Tue</div>
+        <div className={styles['calendar-item']}>Wed</div>
+        <div className={styles['calendar-item']}>Thu</div>
+        <div className={styles['calendar-item']}>Fri</div>
+        <div className={styles['calendar-item']}>Sat</div>
       </div>
       <div className={styles['calendar-rows']}>
         {populateRows()}

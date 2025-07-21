@@ -13,19 +13,20 @@
 
 .calendar-columns {
   display: grid;
-  grid-template-columns: repeat(7, auto);
+  grid-template-columns: repeat(7, 1fr);
   gap: 2px;
-  justify-content: start;
 }
 
-.test {
+.calendar-item {
   width: 100px;
   height: 100px;
   background-color: red;
 }
 
-.test2 {
-  width: 100px;
-  height: 100px;
-  background-color: blue;
+.align-right {
+  justify-content: end;
+}
+
+.align-left {
+  justify-content: start;
 }
