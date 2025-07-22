@@ -1,44 +1,8 @@
 import styles from './calendar.module.css'
+import { testData } from './testData';
 
 export default function Calendar() {
-
-  const testData = [
-    {day: 'thu',
-     digit: 5},
-    {day: 'fri',
-     digit: 6},
-    {day: 'sat',
-     digit: 7},
-    {day: 'sun',
-     digit: 1},
-    {day: 'mon',
-     digit: 2},
-    {day: 'tue',
-     digit: 3},
-    {day: 'wed',
-     digit: 4},
-    {day: 'thu',
-     digit: 5},
-    {day: 'fri',
-     digit: 6},
-    {day: 'sat',
-     digit: 7},
-    {day: 'sun',
-     digit: 1},
-    {day: 'mon',
-     digit: 2},
-    {day: 'tue',
-     digit: 3},
-    {day: 'wed',
-     digit: 4},
-  ]
- 
-  // create temp array of size 7 with no values
-  // get first index of test data
-  // slice using digit of 1st index as start, and digit-7 as end
-  // fill temp array with the sliced array 
   let currentDay = 0;
-
 
   function populateColumns() {
     let colArr = new Array;
@@ -47,10 +11,10 @@ export default function Calendar() {
         break;
       }
 
-      if (testData[currentDay].digit==i+1) {
+      if (testData[currentDay].day_code==i+1) {
         colArr.push(
           <div className={styles['calendar-item']}
-            style={{gridColumnStart: testData[currentDay].digit}}
+            style={{gridColumnStart: testData[currentDay].day_code}}
           >
             {currentDay+1}
           </div>
@@ -58,8 +22,7 @@ export default function Calendar() {
         currentDay += 1;
       }
     }
-
-    console.log(colArr)
+    
     return colArr
   }
 
