@@ -16,7 +16,7 @@ export default function Calendar() {
           <div className={styles['calendar-item']}
             style={{gridColumnStart: testData[currentDay].day_code}}
           >
-            {currentDay+1}
+            <p>{currentDay+1}</p>
           </div>
         )
         currentDay += 1;
@@ -27,26 +27,27 @@ export default function Calendar() {
   }
 
   function populateRows() {
-    const row = new Array(5).fill(0)
+    let rowSize = testData[0].day_code == 7 ? 6 : 5
+    const row = new Array(rowSize).fill(0)
     const rows = row.map(()=>{
-      return <div className={styles['calendar-columns']}>{populateColumns()}</div>
+      return <div className={styles['calendar-row']}>{populateColumns()}</div>
     })
 
     return <>{rows}</>
   }
   
   return (
-    <div className={styles['calendar-container']}>
+    <div className={styles['calendar']}>
       <div className={styles['calendar-days']}>
-        <div className={styles['calendar-item']}>Sun</div>
-        <div className={styles['calendar-item']}>Mon</div>
-        <div className={styles['calendar-item']}>Tue</div>
-        <div className={styles['calendar-item']}>Wed</div>
-        <div className={styles['calendar-item']}>Thu</div>
-        <div className={styles['calendar-item']}>Fri</div>
-        <div className={styles['calendar-item']}>Sat</div>
+        <div className={styles['calendar-day']}><p>Sun</p></div>
+        <div className={styles['calendar-day']}><p>Mon</p></div>
+        <div className={styles['calendar-day']}><p>Tue</p></div>
+        <div className={styles['calendar-day']}><p>Wed</p></div>
+        <div className={styles['calendar-day']}><p>Thu</p></div>
+        <div className={styles['calendar-day']}><p>Fri</p></div>
+        <div className={styles['calendar-day']}><p>Sat</p></div>
       </div>
-      <div className={styles['calendar-rows']}>
+      <div className={styles['calendar-rows-container']}>
         {populateRows()}
       </div>
     </div>
