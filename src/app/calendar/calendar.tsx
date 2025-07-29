@@ -2,6 +2,7 @@ import styles from './calendar.module.css'
 import { testData } from './testData';
 
 export default function Calendar() {
+  let dayName = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   let currentDay = 0;
 
   function populateColumns() {
@@ -35,17 +36,23 @@ export default function Calendar() {
 
     return <>{rows}</>
   }
+
+  function populateCalendarHeader() {
+    return (
+      dayName.map((i, index)=>{
+        return (
+          <div key={i} className={styles['calendar-day']}>
+            <p>{dayName[index]}</p>
+          </div>
+        )
+      })
+    )
+  }
   
   return (
     <div className={styles['calendar']}>
-      <div className={styles['calendar-days']}>
-        <div className={styles['calendar-day']}><p>Sun</p></div>
-        <div className={styles['calendar-day']}><p>Mon</p></div>
-        <div className={styles['calendar-day']}><p>Tue</p></div>
-        <div className={styles['calendar-day']}><p>Wed</p></div>
-        <div className={styles['calendar-day']}><p>Thu</p></div>
-        <div className={styles['calendar-day']}><p>Fri</p></div>
-        <div className={styles['calendar-day']}><p>Sat</p></div>
+      <div className={styles['calendar-header']}>
+        {populateCalendarHeader()}
       </div>
       <div className={styles['calendar-rows-container']}>
         {populateRows()}

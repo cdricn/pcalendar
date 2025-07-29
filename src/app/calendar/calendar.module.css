@@ -3,7 +3,7 @@
   position: relative;
 }
 
-.calendar-days {
+.calendar-header {
   display: grid;
   grid-template-columns: repeat(7, auto);
   gap: 2px;
@@ -40,11 +40,11 @@
   color: var(--color-calendarItems);
 }
 .calendar-day > p {
-  font-size: 36px;
+  font-size: var(--fsize-dayName);
   line-height: .7;
 }
 .calendar-item > p {
-  font-size: 60px;
+  font-size: var(--fsize-dayNumber);
   line-height: 1.4;
 }
 
