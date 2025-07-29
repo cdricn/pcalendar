@@ -14,8 +14,17 @@
 
   --font-Inter: "Inter";
 
-  --font-size-body: 1rem; /* 16px */
-  --font-size-h1: 1.5rem; /* 24px */
+  --fsize-h1: 4.5rem; /* 72px */
+  --fsize-h2: 3.75rem; /* 60px */
+  --fsize-h3-100: 2.25rem; /* 36px */
+  --fsize-h3: 1.875rem; /* 30px */
+  --fsize-h4-100: 1.75rem; /* 28px */
+  --fsize-h4: 1.5rem; /* 24px */
+  --fsize-body: 1.125rem; /* 18px */
+
+  --fsize-month: var(--fsize-h4-100);
+  --fsize-dayName: var(--fsize-h3-100);
+  --fsize-dayNumber: var(--fsize-h2);
 
   --color-metal: rgb(231, 231, 231);
   --color-calendarItems: var(--color-metal);
