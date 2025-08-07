@@ -1,0 +1,30 @@
+.schedule {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 380px;
+  min-width: 320px;
+  color: var(--color-metal);
+}
+
+.schedule-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.schedule-date {
+  font-size: var(--fsize-h4);
+  font-family: var(--font-ArsenalBold);
+}
+
+.schedule-filters {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--fsize-h4);
+  font-family: var(--font-ArsenalBold);
+}
+
+.schedule-info {
+  font-size: var(--fsize-body);
+}
