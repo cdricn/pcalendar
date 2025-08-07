@@ -1,13 +1,36 @@
-.content-container {
-  margin: 10px;
+.main-container {
   display: flex;
-  gap: 10px;
+  justify-content: space-around;
+}
+.main-wrapper {
+  width: 90%;
+  min-width: 320px;
+  max-width: 1300px;
+}
+.main-wrapper > h1 {
+  color: var(--color-metal);
+  font-size: var(--fsize-h1);
+  font-family: var(--font-Inter);
+  font-weight: 900;
+}
+
+.content-wrapper {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
 }
 
 .calendar-container {
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+.calendar-container > h1{ 
+  color: var(--color-metal);
+  font-size: var(--fsize-h1);
+  font-family: var(--font-Inter);
+  font-weight: 900;
 }
 
 .calendar-months {
@@ -21,9 +44,14 @@
 .calendar-months > li {
   padding: 10px;
   text-align: center;
-  font-size: 24px;
+  font-size: var(--fsize-month);
   font-family: var(--font-Inter);
   font-weight: 900;
   color: var(--color-calendarItems);
   mix-blend-mode: difference;
+}
+
+.schedule-container {
+  position: relative;
+  display: flex;
 }
