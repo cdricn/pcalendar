@@ -2,8 +2,8 @@ import styles from './main.module.css'
 import Calendar from './calendar/calendar'
 import Schedule from './schedule/schedule'
 import { fetchCalendarData } from './lib/data'
-import { testData } from './calendar/testData'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { readRemoteFile, usePapaParse } from 'react-papaparse'
 
 export default function Main() {
   // import test data depending on month selected. Default is data from April, the 1st month
@@ -39,19 +39,29 @@ export default function Main() {
     console.log(month)
   }
 
-  function handleTest(e:any) {
+  const handleReadRemoteFile = () => {
+    readRemoteFile('https://raw.githubusercontent.com/cdricn/pcalendar/refs/heads/main/src/app/assets/data/P5RCalendar.csv', {
+      download: true,
+      complete: (results) => {
+        console.log('---------------------------');
+        console.log('Results:', results);
+        console.log('---------------------------');
+      },
+    });
+  };
 
-  }
+  
 
   return (
     <main className={styles['main-container']}>
       <div className={styles['main-wrapper']}>
-        <h1>Calendar</h1>
+        <h1 onClick={()=>handleReadRemoteFile()}>Calendar</h1>
         <div className={styles['content-wrapper']}>
           <div className={styles['calendar-container']}>
             <ul className={styles['calendar-months']}>
               {populateMonths()}
             </ul>
+            {/*<Calendar />*/}
           </div>
           <div className={styles['schedule-container']}>
             <Schedule />
