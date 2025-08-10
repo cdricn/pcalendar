@@ -1,16 +1,33 @@
 import styles from './main.module.css'
 import Calendar from './calendar/calendar'
 import Schedule from './schedule/schedule'
-import { fetchCalendarData } from './lib/data'
+import { handleReadRemoteFile } from './lib/data'
 import { useEffect, useState } from 'react'
-import { readRemoteFile, usePapaParse } from 'react-papaparse'
+import type { CalendarData } from './lib/interface'
 
 export default function Main() {
   // import test data depending on month selected. Default is data from April, the 1st month
   // Pass digits to Calendar component to form its structure
   // Pass object data to schedule to display stuff based on selected number 
-  const [data, setData] = useState([])
+  const [data, setData] = useState<CalendarData[]>([])
   const [month, setMonth] = useState('APR')
+
+  useEffect(()=>{
+    if(data.length == 0) {
+      async function getCsvFile() {
+        const CsvFile = await fetchData()
+        setData(CsvFile)
+      }
+      getCsvFile()
+    }
+    console.log("data", data)
+
+  }, [data, month])
+
+  function setSelectedMonth(newMonth:string) {
+    setMonth(newMonth)
+    // process month
+  }
 
   function populateMonths() {
     const months = [
@@ -33,29 +50,15 @@ export default function Main() {
       )
     })
   }
-  
-  function setSelectedMonth(e:string) {
-    setMonth(e)
-    console.log(month)
+
+  async function fetchData() {
+    return await handleReadRemoteFile()
   }
-
-  const handleReadRemoteFile = () => {
-    readRemoteFile('https://raw.githubusercontent.com/cdricn/pcalendar/refs/heads/main/src/app/assets/data/P5RCalendar.csv', {
-      download: true,
-      complete: (results) => {
-        console.log('---------------------------');
-        console.log('Results:', results);
-        console.log('---------------------------');
-      },
-    });
-  };
-
-  
 
   return (
     <main className={styles['main-container']}>
       <div className={styles['main-wrapper']}>
-        <h1 onClick={()=>handleReadRemoteFile()}>Calendar</h1>
+        <h1>Calendar</h1>
         <div className={styles['content-wrapper']}>
           <div className={styles['calendar-container']}>
             <ul className={styles['calendar-months']}>
@@ -64,7 +67,7 @@ export default function Main() {
             {/*<Calendar />*/}
           </div>
           <div className={styles['schedule-container']}>
-            <Schedule />
+            <Schedule month={month}/>
           </div>
         </div>
       </div>
