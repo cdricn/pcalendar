@@ -9,18 +9,42 @@ export function handleReadRemoteFile() {
         download: true,
         header: true,
         complete: (results : any) => {
-          /* Test 
-          console.log('---------------------------');
-          console.log('Results:', results);
-          console.log('---------------------------');
-          */
-          resolve(results.data)
+          const newData = formatMonth(results.data);
+          resolve(newData);
         },
         error: (error: Error) => {
-          console.log('Could not download data:', error)
-          reject(error)
+          console.log('Could not download data:', error);
+          reject(error);
         }
       }
     )
   )
 };
+
+function formatMonth(data: CalendarData[]) {
+  const monthMap : { [key: string] : string } = {
+    'april': 'APR',
+    'may': 'MAY',
+    'june': 'JUN',
+    'july': 'JUL',
+    'august': 'AUG',
+    'september': 'SEP',
+    'october': 'OCT',
+    'november': 'NOV',
+    'december': 'DEC',
+    'january': 'JAN',
+    'february': 'FEB',
+    'march': 'MAR',
+  }
+
+  return (
+    data.map((item, index) => {
+      const formattedMonth = monthMap[data[index].month];
+      return {
+        ...item,
+        month: formattedMonth,
+      }
+    })
+  )
+
+}

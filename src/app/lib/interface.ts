@@ -19,7 +19,7 @@ export interface CsvData {
 }
 
 export interface CalendarDataObject {
-  data: Array<CalendarData>;
+  data: CalendarData;
 }
 
 export interface CalendarDays {

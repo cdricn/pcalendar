@@ -1,6 +1,8 @@
 .main-container {
   display: flex;
   justify-content: space-around;
+  align-items: center;
+  height: 100svh;
 }
 .main-wrapper {
   width: 90%;
@@ -54,4 +56,10 @@
 .schedule-container {
   position: relative;
   display: flex;
+}
+
+@media (width < 1000px) {
+  .content-wrapper {
+    flex-direction: column;
+  }
 }
