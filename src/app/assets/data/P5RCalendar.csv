@@ -1,4 +1,12 @@
 month,day,day_code,day_weather,night_weather,special_day_weather,special_night_weather,city,confidant_events,events,events_spoiler,day_activities,night_activities
+april,1,6,,,,,,,,,,
+april,2,7,,,,,,,,,,
+april,3,1,,,,,,,,,,
+april,4,2,,,,,,,,,,
+april,5,3,,,,,,,,,,
+april,6,4,,,,,,,,,,
+april,7,5,,,,,,,,,,
+april,8,6,,,,,,,,,,
 april,9,7,cloudy,cloudy,,,,,Game start.,,unavailable,unavailable
 april,10,1,cloudy,cloudy,,,,,,,unavailable,unavailable
 april,11,2,clear,cloudy,,,,,,,unavailable,unavailable
