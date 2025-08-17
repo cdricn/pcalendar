@@ -1,40 +1,38 @@
 import styles from './calendar.module.css'
-import { testData } from './testData';
+import type { CalendarDays } from '../lib/interface';
 
-export default function Calendar() {
+export default function Calendar({days} : CalendarDays) {
   let dayName = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   let currentDay = 0;
 
   function populateColumns() {
-    let colArr = new Array;
-    for (let i=0; i<7; ++i) {
-      if (!testData[currentDay]) {
-        break;
-      }
+    let columnArray = new Array;
+    let counter = days[currentDay];
+    while (days[currentDay]<=7) {
+      if (counter > 7) break;
 
-      if (testData[currentDay].day_code==i+1) {
-        colArr.push(
-          <div className={styles['calendar-item']}
-            style={{gridColumnStart: testData[currentDay].day_code}}
-          >
-            <p>{currentDay+1}</p>
-          </div>
-        )
-        currentDay += 1;
-      }
+      columnArray.push(
+        <div className={styles['calendar-item']}
+          style={{gridColumnStart: days[currentDay]}}
+        >
+          <p>{currentDay+1}</p>
+        </div>
+      );
+
+      currentDay += 1;
+      counter++;
     }
-    
-    return colArr
+    return columnArray;
   }
 
   function populateRows() {
-    let rowSize = testData[0].day_code == 7 ? 6 : 5
-    const row = new Array(rowSize).fill(0)
-    const rows = row.map(()=>{
+    let rowLength = days[0] == 7 ? 6 : 5;
+    const calendarRows = new Array(rowLength).fill(0);
+    const rows = calendarRows.map(()=>{
       return <div className={styles['calendar-row']}>{populateColumns()}</div>
-    })
+    });
 
-    return <>{rows}</>
+    return <>{rows}</>;
   }
 
   function populateCalendarHeader() {
@@ -44,9 +42,9 @@ export default function Calendar() {
           <div key={i} className={styles['calendar-day']}>
             <p>{dayName[index]}</p>
           </div>
-        )
+        );
       })
-    )
+    );
   }
   
   return (
