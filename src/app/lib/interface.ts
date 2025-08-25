@@ -24,4 +24,5 @@ export interface CalendarDataObject {
 
 export interface CalendarDays {
   days: Array<number>;
+  onSelect: (data: number) => void
 }

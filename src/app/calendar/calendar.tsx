@@ -1,19 +1,28 @@
 import styles from './calendar.module.css'
 import type { CalendarDays } from '../lib/interface';
+import { useState } from 'react';
 
-export default function Calendar({days} : CalendarDays) {
+export default function Calendar({days, onSelect} : CalendarDays) {
+  const [selectedDay, setSelectedDay] = useState('');
   let dayName = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   let currentDay = 0;
+
+  function handleClick(e:React.MouseEvent<HTMLDivElement>) {
+    let day = e.currentTarget.getAttribute("id")
+    onSelect(Number(day));
+  }
 
   function populateColumns() {
     let columnArray = new Array;
     let counter = days[currentDay];
     while (days[currentDay]<=7) {
       if (counter > 7) break;
-
       columnArray.push(
-        <div className={styles['calendar-item']}
+        <div key={currentDay+1}
+          id={(currentDay).toString()}
+          className={styles['calendar-item']}
           style={{gridColumnStart: days[currentDay]}}
+          onClick={handleClick}
         >
           <p>{currentDay+1}</p>
         </div>
@@ -28,8 +37,8 @@ export default function Calendar({days} : CalendarDays) {
   function populateRows() {
     let rowLength = days[0] == 7 ? 6 : 5;
     const calendarRows = new Array(rowLength).fill(0);
-    const rows = calendarRows.map(()=>{
-      return <div className={styles['calendar-row']}>{populateColumns()}</div>
+    const rows = calendarRows.map((_, index)=>{
+      return <div key={index} className={styles['calendar-row']}>{populateColumns()}</div>
     });
 
     return <>{rows}</>;
@@ -39,7 +48,8 @@ export default function Calendar({days} : CalendarDays) {
     return (
       dayName.map((i, index)=>{
         return (
-          <div key={i} className={styles['calendar-day']}>
+          <div key={i} className={styles['calendar-day']} 
+            onClick={()=>setSelectedDay(dayName[index])}>
             <p>{dayName[index]}</p>
           </div>
         );

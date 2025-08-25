@@ -1,12 +1,13 @@
+import type { CalendarDataObject } from '../lib/interface'
 import styles from './schedule.module.css'
 
-export default function Schedule() {
-
+export default function Schedule({data} : CalendarDataObject) {
+  //console.log("hello", data)
   return (
     <div className={styles['schedule']}>
       <div className={styles['schedule-nav']}>
         <div className={styles['schedule-date']}>
-          <p>8/10 Wed</p>
+          <p>8/{data.day}</p>
         </div>
         <div className={styles['schedule-filters']}>
           <div>Events</div>
@@ -16,7 +17,7 @@ export default function Schedule() {
         </div>
       </div>
       <div className={styles['schedule-info']}>
-        
+        {data.events}
       </div>
     </div>
   )

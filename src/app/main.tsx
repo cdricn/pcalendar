@@ -7,11 +7,20 @@ import type { CalendarData } from './lib/interface';
 
 export default function Main() {
   // import test data depending on month selected. Default is data from April, the 1st month
-  // Pass digits to Calendar component to form its structure
+  // Pass digits to Calendar component to form its structure (DONE)
+  // Make calendar component return the clicked day and pass that to main
   // Pass object data to schedule to display stuff based on selected number 
   const [data, setData] = useState<CalendarData[]>([]);
   const [month, setMonth] = useState('APR');
   const [daysArray, setDaysArray] = useState<Array<number>>([]);
+  const [selectedDay, setSelectedDay] = useState(0)
+  
+  const monthArray: CalendarData[] = [];
+
+  function getSelectedDay(returnedDay: number) {
+    setSelectedDay((prev)=>prev = returnedDay)
+    console.log(returnedDay)
+  }
 
   useEffect(()=>{
     if(data.length === 0) {
@@ -28,10 +37,15 @@ export default function Main() {
 
   function setSelectedMonth(newMonth:string) {
     setMonth(newMonth);
+    let days = []
     for (let i = 0; i<data.length; i++) {
       if(data[i].month === month) {
+        days.push(data[i].day_code);
+        monthArray.push(data[i]);
       }
     }
+    setDaysArray(days);
+    console.log(monthArray);
   }
 
   function populateMonths() {
@@ -70,12 +84,12 @@ export default function Main() {
               {populateMonths()}
             </ul>
             { 
-              data.length > 0 ? <Calendar days={[0]}/> : 
+              data.length > 0 ? <Calendar days={daysArray} onSelect={getSelectedDay}/> : 
               <div className={styles['loading']}></div>
             }
           </div>
           <div className={styles['schedule-container']}>
-            { data.length > 0 ? <Schedule data={data[0]}/> : null }
+            { data.length > 0 ? <Schedule data={data[selectedDay]}/> : null }
           </div>
         </div>
       </div>

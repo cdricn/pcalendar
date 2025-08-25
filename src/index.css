@@ -13,6 +13,8 @@
   -moz-osx-font-smoothing: grayscale;
 
   --font-Inter: "Inter";
+  --font-Arsenal: "Arsenal";
+  --font-ArsenalBold: "ArsenalBold";
 
   --fsize-h1: 4.5rem; /* 72px */
   --fsize-h2: 3.75rem; /* 60px */
@@ -37,6 +39,10 @@
 @font-face{
   font-family: "Arsenal";
   src:local("Arsenal-Regular"), url("./app/assets/fonts/Arsenal-Regular.ttf")
+}
+@font-face{
+  font-family: "ArsenalBold";
+  src:local("Arsenal-Bold"), url("./app/assets/fonts/Arsenal-Bold.ttf")
 }
 
 *, *::before, *::after {
