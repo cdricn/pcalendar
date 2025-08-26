@@ -9,6 +9,7 @@ export default function Calendar({days, onSelect} : CalendarDays) {
 
   function handleClick(e:React.MouseEvent<HTMLDivElement>) {
     let day = e.currentTarget.getAttribute("id")
+    console.log('e day',day)
     onSelect(Number(day));
   }
 

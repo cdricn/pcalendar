@@ -36,8 +36,7 @@ export default function Main() {
   }, [data, month]);
 
   function getSelectedDay(returnedDay: number) {
-    setSelectedDay((prev)=>prev = returnedDay)
-    console.log(selectedDay)
+    setSelectedDay(returnedDay)
   }
 
   function setSelectedMonth(newMonth:string) {
@@ -94,7 +93,7 @@ export default function Main() {
             }
           </div>
           <div className={styles['schedule-container']}>
-            { displayLoading.schedule ? null : <Schedule data={selectedSchedule[5]}/>}
+            { displayLoading.schedule ? null : <Schedule data={selectedSchedule[selectedDay]}/>}
           </div>
         </div>
       </div>
