@@ -1,4 +1,4 @@
-export interface CalendarData {
+export interface ScheduleData {
   month: string,
   day: number, 
   day_code: number, 
@@ -15,11 +15,15 @@ export interface CalendarData {
 }
 
 export interface CsvData {
-  data: CalendarData[];
+  data: ScheduleData[];
 }
 
-export interface CalendarDataObject {
-  data: CalendarData;
+export interface ScheduleDataObject {
+  data: ScheduleData;
+}
+
+export interface CalendarData {
+  [month: string]: ScheduleData[];
 }
 
 export interface CalendarDays {

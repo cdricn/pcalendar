@@ -1,16 +1,14 @@
-import type { CalendarData } from './interface'
+import type { ScheduleData, CsvData, CalendarData } from './interface'
 import { readRemoteFile } from 'react-papaparse'
 
-
 export function handleReadRemoteFile() {
-  return new Promise<CalendarData[]>((resolve, reject)=>
+  return new Promise<CalendarData>((resolve, reject)=>
     readRemoteFile('https://raw.githubusercontent.com/cdricn/pcalendar/refs/heads/main/src/app/assets/data/P5RCalendar.csv', 
       {
         download: true,
         header: true,
-        complete: (results : any) => {
+        complete: (results : CsvData) => {
           const newData = formatMonth(results.data);
-          storeMonths(newData)
           resolve(newData);
           //IMPORTANT: When  you get the data, sort through all of it and put 
           //each month in an array. This way, you don't ahve to loop through
@@ -25,16 +23,7 @@ export function handleReadRemoteFile() {
   )
 };
 
-function storeMonths(data: CalendarData[]) {
-  for (let i = 0; i<data.length; i++) {
-    if(data[i].month === month) {
-      days.push(data[i].day_code);
-      monthArray.push(data[i]);
-    }
-  }
-}
-
-function formatMonth(data: CalendarData[]) {
+function formatMonth(data: ScheduleData[]) {
   const monthMap : { [key: string] : string } = {
     'april': 'APR',
     'may': 'MAY',
@@ -48,16 +37,19 @@ function formatMonth(data: CalendarData[]) {
     'january': 'JAN',
     'february': 'FEB',
     'march': 'MAR',
+  };
+
+  const monthObj : CalendarData = {};
+  let formattedMonth;
+  
+  for(const item of data) {
+    formattedMonth = monthMap[item.month];
+    
+    if (monthObj[formattedMonth]) {
+      monthObj[formattedMonth].push({...item, month: formattedMonth});
+    } else {
+      monthObj[formattedMonth] = [{...item, month: formattedMonth}];
+    }
   }
-
-  return (
-    data.map((item, index) => {
-      const formattedMonth = monthMap[data[index].month];
-      return {
-        ...item,
-        month: formattedMonth,
-      }
-    })
-  )
-
+  return monthObj;
 }

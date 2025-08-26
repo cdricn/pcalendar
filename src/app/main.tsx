@@ -3,30 +3,30 @@ import Calendar from './calendar/calendar';
 import Schedule from './schedule/schedule';
 import { handleReadRemoteFile } from './lib/data';
 import { useEffect, useState } from 'react';
-import type { CalendarData } from './lib/interface';
+import type { CalendarData, ScheduleData } from './lib/interface';
 
 export default function Main() {
   // import test data depending on month selected. Default is data from April, the 1st month
   // Pass digits to Calendar component to form its structure (DONE)
   // Make calendar component return the clicked day and pass that to main
   // Pass object data to schedule to display stuff based on selected number 
-  const [data, setData] = useState<CalendarData[]>([]);
+  const [data, setData] = useState<CalendarData>({});
   const [month, setMonth] = useState('APR');
   const [daysArray, setDaysArray] = useState<Array<number>>([]);
-  const [selectedDay, setSelectedDay] = useState(0)
+  const [selectedDay, setSelectedDay] = useState(0);
+  const [selectedSchedule, setSelectedSchedule] = useState<ScheduleData[]>([])
+  const [displayLoading, setDisplayLoading] = useState({
+    calendar: true,
+    schedule: true
+  });
   
-  const monthArray: CalendarData[] = [];
-
-  function getSelectedDay(returnedDay: number) {
-    setSelectedDay((prev)=>prev = returnedDay)
-    console.log(returnedDay)
-  }
 
   useEffect(()=>{
-    if(data.length === 0) {
+    if(Object.keys(data).length === 0) {
       async function getCsvFile() {
         const CsvFile = await fetchData();
         setData(CsvFile);
+        setDisplayLoading(prev=>{return {...prev, calendar: false} })
       }
       getCsvFile();
     }
@@ -35,17 +35,22 @@ export default function Main() {
     }
   }, [data, month]);
 
+  function getSelectedDay(returnedDay: number) {
+    setSelectedDay((prev)=>prev = returnedDay)
+    console.log(selectedDay)
+  }
+
   function setSelectedMonth(newMonth:string) {
     setMonth(newMonth);
+    const monthArray: ScheduleData[] = [];
     let days = []
-    for (let i = 0; i<data.length; i++) {
-      if(data[i].month === month) {
-        days.push(data[i].day_code);
-        monthArray.push(data[i]);
-      }
+    for (let i = 0; i<data[newMonth].length; i++) {
+      days.push(data[newMonth][i].day_code);
+      monthArray.push(data[newMonth][i]);
     }
+    setSelectedSchedule(monthArray);
+    setDisplayLoading(prev=>{return {...prev, schedule: false} })
     setDaysArray(days);
-    console.log(monthArray);
   }
 
   function populateMonths() {
@@ -84,15 +89,16 @@ export default function Main() {
               {populateMonths()}
             </ul>
             { 
-              data.length > 0 ? <Calendar days={daysArray} onSelect={getSelectedDay}/> : 
-              <div className={styles['loading']}></div>
+              displayLoading.calendar ? <div className={styles['loading']}></div> : 
+              <Calendar days={daysArray} onSelect={getSelectedDay}/>
             }
           </div>
           <div className={styles['schedule-container']}>
-            { data.length > 0 ? <Schedule data={data[selectedDay]}/> : null }
+            { displayLoading.schedule ? null : <Schedule data={selectedSchedule[5]}/>}
           </div>
         </div>
       </div>
     </main>
   )
 }
+// 
