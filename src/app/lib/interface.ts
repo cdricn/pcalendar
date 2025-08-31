@@ -1,5 +1,6 @@
 export interface ScheduleData {
   month: string,
+  monthCode: number, 
   day: number, 
   day_code: number, 
   day_weather: string,

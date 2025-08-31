@@ -24,7 +24,7 @@ export function handleReadRemoteFile() {
 };
 
 function formatMonth(data: ScheduleData[]) {
-  const monthMap : { [key: string] : string } = {
+  const monthNameFormat : { [key: string] : string } = {
     'april': 'APR',
     'may': 'MAY',
     'june': 'JUN',
@@ -38,17 +38,33 @@ function formatMonth(data: ScheduleData[]) {
     'february': 'FEB',
     'march': 'MAR',
   };
+    const monthCodeFormat : { [key: string] : number } = {
+    'APR': 4,
+    'MAY': 5,
+    'JUN': 6,
+    'JUL': 7,
+    'AUG': 8,
+    'SEP': 9,
+    'OCT': 10,
+    'NOV': 11,
+    'DEC': 12,
+    'JAN': 1,
+    'FEB': 2,
+    'MAR': 3,
+  };
 
   const monthObj : CalendarData = {};
   let formattedMonth;
+  let monthCode;
   
   for(const item of data) {
-    formattedMonth = monthMap[item.month];
+    formattedMonth = monthNameFormat[item.month];
+    monthCode = monthCodeFormat[formattedMonth];
     
     if (monthObj[formattedMonth]) {
-      monthObj[formattedMonth].push({...item, month: formattedMonth});
+      monthObj[formattedMonth].push({...item, month: formattedMonth, monthCode: monthCode});
     } else {
-      monthObj[formattedMonth] = [{...item, month: formattedMonth}];
+      monthObj[formattedMonth] = [{...item, month: formattedMonth, monthCode: monthCode}];
     }
   }
   return monthObj;

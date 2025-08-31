@@ -19,6 +19,7 @@
 }
 
 .schedule-filters {
+  position: relative;
   display: flex;
   justify-content: space-between;
   font-size: var(--fsize-h4);
@@ -27,4 +28,14 @@
 
 .schedule-info {
   font-size: var(--fsize-body);
+}
+
+.filter-button {
+  position: relative;
+}
+
+.filter-highlight {
+  position: absolute;
+  margin: auto;
+  transform: rotate(-9deg);
 }
