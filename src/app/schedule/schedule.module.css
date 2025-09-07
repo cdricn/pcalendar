@@ -32,6 +32,8 @@
 
 .filter-button {
   position: relative;
+  user-select: none;
+  mix-blend-mode: difference;
 }
 
 .filter-highlight {

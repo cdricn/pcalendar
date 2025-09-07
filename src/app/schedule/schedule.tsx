@@ -26,13 +26,10 @@ export default function Schedule({data} : ScheduleDataObject) {
     }
   }
 
-
   let elementWidth = document.getElementById(selectedFilter)?.offsetWidth;
   let elementLeft = document.getElementById(selectedFilter)?.offsetLeft;
   let elementHeight = document.getElementById(selectedFilter)?.offsetHeight;
-  if (elementHeight) { elementHeight = elementHeight - 10; }
-  console.log();
-
+  
   const highlightOnClick = {
     left: `${elementLeft}px`,
     width: elementWidth,
