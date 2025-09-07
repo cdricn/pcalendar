@@ -37,5 +37,29 @@
 .filter-highlight {
   position: absolute;
   margin: auto;
-  transform: rotate(-9deg);
+  animation: wiggle .8s infinite;
+  clip-path: polygon(0% 40%, 90% 0%, 80% 70%, 25% 100%);
+}
+
+@keyframes wiggle {
+  0% {
+    transform: scale(1) rotate(-9deg);
+    clip-path: polygon(0% 50%, 80% 0%, 100% 70%, 15% 100%);
+  }
+  25% {
+    transform: scale(1) rotate(-9deg);
+    clip-path: polygon(10% 30%, 85% 0%, 90% 60%, 25% 100%);
+  }
+  65% {
+    transform: scale(1) rotate(-9deg);
+    clip-path: polygon(15% 40%, 60% 0%, 100% 80%, 30% 100%);
+  }
+  75% {
+    transform: scale(1) rotate(-9deg);
+    clip-path: polygon(0% 40%, 90% 0%, 80% 70%, 20% 100%);
+  }
+  100% {
+    transform: scale(1) rotate(-9deg);
+    clip-path: polygon(0% 50%, 80% 0%, 100% 70%, 16% 100%);
+  }
 }

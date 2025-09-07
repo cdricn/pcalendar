@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 export default function Schedule({data} : ScheduleDataObject) {
   const [filter, setFilter] = useState<FilterKeys>('events');
-  const [selectedFilter, setSelectedFilter] = useState('eventId');
+  const [selectedFilter, setSelectedFilter] = useState('');
   const [target, setTarget] = useState()
   type FilterKeys = 'city' | 'events' | 'confidant_events';
   let events : FilterKeys = 'events';
@@ -26,14 +26,19 @@ export default function Schedule({data} : ScheduleDataObject) {
     }
   }
 
+
   let elementWidth = document.getElementById(selectedFilter)?.offsetWidth;
+  let elementLeft = document.getElementById(selectedFilter)?.offsetLeft;
   let elementHeight = document.getElementById(selectedFilter)?.offsetHeight;
   if (elementHeight) { elementHeight = elementHeight - 10; }
+  console.log();
 
   const highlightOnClick = {
+    left: `${elementLeft}px`,
     width: elementWidth,
     height: elementHeight,
-    backgroundColor: 'red'
+    backgroundColor: 'red',
+    display: selectedFilter ? 'display' : 'hidden'
   }
 
   return (
@@ -43,7 +48,8 @@ export default function Schedule({data} : ScheduleDataObject) {
           <p>{data.monthCode}/{data.day}</p>
         </div>
         <div className={styles['schedule-filters']}>
-          <div className={styles['filter-highlight']} style={highlightOnClick}></div>
+          <div className={styles['filter-highlight']} style={highlightOnClick}>
+          </div>
           <div id={'eventId'} className={styles['filter-button']}
             onClick={(target)=>handleClick(events, target)}>Events</div>
           <div id={'confidantId'} className={styles['filter-button']} 
