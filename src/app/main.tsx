@@ -20,13 +20,12 @@ export default function Main() {
     schedule: true
   });
   
-
   useEffect(()=>{
     if(Object.keys(data).length === 0) {
       async function getCsvFile() {
         const CsvFile = await fetchData();
         setData(CsvFile);
-        setDisplayLoading(prev=>{return {...prev, calendar: false} })
+        setDisplayLoading(prev=>{return {...prev, calendar: false} });
       }
       getCsvFile();
     }
@@ -36,7 +35,7 @@ export default function Main() {
   }, [data, month]);
 
   function getSelectedDay(returnedDay: number) {
-    setSelectedDay(returnedDay)
+    setSelectedDay(returnedDay);
   }
 
   function setSelectedMonth(newMonth:string) {
@@ -48,8 +47,9 @@ export default function Main() {
       monthArray.push(data[newMonth][i]);
     }
     setSelectedSchedule(monthArray);
-    setDisplayLoading(prev=>{return {...prev, schedule: false} })
+    setDisplayLoading(prev=>{return {...prev, schedule: false} });
     setDaysArray(days);
+    //console.log(daysArray)
   }
 
   function populateMonths() {
@@ -89,7 +89,7 @@ export default function Main() {
             </ul>
             { 
               displayLoading.calendar ? <div className={styles['loading']}></div> : 
-              <Calendar days={daysArray} onSelect={getSelectedDay}/>
+              <Calendar data={selectedSchedule} onSelect={getSelectedDay}/>
             }
           </div>
           <div className={styles['schedule-container']}>

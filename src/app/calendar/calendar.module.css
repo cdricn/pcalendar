@@ -47,6 +47,7 @@
 .calendar-item > p {
   font-size: var(--fsize-dayNumber);
   line-height: 1.4;
+  user-select: none;
 }
 
 .align-right {
