@@ -10,9 +10,9 @@ export function handleReadRemoteFile() {
         complete: (results : CsvData) => {
           const newData = formatMonth(results.data);
           resolve(newData);
-          //IMPORTANT: When  you get the data, sort through all of it and put 
-          //each month in an array. This way, you don't ahve to loop through
-          //the entire dataset EVERYTIME the user selects a different month.
+          //IMPORTANT: ONLY LOAD DATA ONCE. Find a way to do that because I think
+          //right now, every component load, this thing will download or maybe not
+          //please re-check this  
         },
         error: (error: Error) => {
           console.log('Could not download data:', error);

@@ -28,6 +28,6 @@ export interface CalendarData {
 }
 
 export interface CalendarDays {
-  days: Array<number>;
+  data: ScheduleData[];
   onSelect: (data: number) => void
 }
