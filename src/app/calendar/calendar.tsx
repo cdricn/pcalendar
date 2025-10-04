@@ -2,18 +2,13 @@ import styles from './calendar.module.css'
 import HighlightBox from '../animations/highlightBox';
 import type { CalendarDays, ScheduleData } from '../lib/interface';
 import { useEffect, useState } from 'react';
+import { CgCardDiamonds } from "react-icons/cg";
 
 export default function Calendar({data, onSelect} : CalendarDays) {
   const [selectedDay, setSelectedDay] = useState('');
   const [highlightedItem, setHighlightedItem] = useState({id: '', rowIndex: ''});
-  const [currentSchedule, setCurrentSchedule] = useState<ScheduleData[]>([]);
   let dayName = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   let currentDay = 0;
-  useEffect(()=>{
-    if (!(Object.keys(data).length === 0)) {
-      setCurrentSchedule(data);
-    }
-  }, [data]); 
 
   function handleClick(e:React.MouseEvent<HTMLDivElement>) {
     let id = e.currentTarget.getAttribute("id")!;
@@ -24,24 +19,24 @@ export default function Calendar({data, onSelect} : CalendarDays) {
 
   function populateColumns(index:number) {
     let columnArray = new Array;
-    if (currentSchedule.length > 0) {
-      let counter = currentSchedule[currentDay].day_code;
+    if (data.length > 0) {
+      let counter = data[currentDay].day_code;
 
-      while (currentSchedule[currentDay].day_code <= 7) {
+      while (data[currentDay].day_code <= 7) {
         if (counter > 7) break;
         columnArray.push(
           <div key={currentDay}
             id={(currentDay).toString()}
             data-id={index}
             className={styles['calendar-item']}
-            style={{gridColumnStart: currentSchedule[currentDay].day_code}}
+            style={{gridColumnStart: data[currentDay].day_code}}
             onClick={handleClick}
           >
-            <p>{currentSchedule[currentDay].day}</p>
+            <p>{data[currentDay].day}</p>
           </div>
         );
 
-        if (currentDay < currentSchedule.length-1) {
+        if (currentDay < data.length-1) {
           currentDay++;
         } else {
           break;
@@ -56,8 +51,8 @@ export default function Calendar({data, onSelect} : CalendarDays) {
   function populateRows() {
     let maxRows;
     let rowLength;
-    if (currentSchedule.length > 0) {
-      rowLength = currentSchedule[0].day_code == 7 ? maxRows = 6 : maxRows = 5;
+    if (data.length > 0) {
+      rowLength = data[0].day_code == 7 ? maxRows = 6 : maxRows = 5;
     }
     const calendarRows = new Array(rowLength).fill(0);
     const rows = calendarRows.map((_, index)=>{
@@ -86,7 +81,10 @@ export default function Calendar({data, onSelect} : CalendarDays) {
         {populateCalendarHeader()}
       </div>
       <div className={styles['calendar-rows-container']}>
-        <HighlightBox id={highlightedItem.id} rowIndex={highlightedItem.rowIndex}/>
+        <HighlightBox id={highlightedItem.id} 
+          rowIndex={highlightedItem.rowIndex} 
+          size={data.length}
+        />
         {populateRows()}
       </div>
     </div>

@@ -35,7 +35,14 @@ export default function Main() {
   }, [data, month]);
 
   function getSelectedDay(returnedDay: number) {
-    setSelectedDay(returnedDay);
+    if(returnedDay>selectedSchedule.length) {
+      setSelectedDay(30);
+      console.log('overflow',selectedDay)
+    }
+    else {
+      setSelectedDay(returnedDay);
+      console.log('ok',selectedDay)
+    }
   }
 
   function setSelectedMonth(newMonth:string) {

@@ -1,6 +1,7 @@
 .filter-highlight {
   position: absolute;
   margin: auto;
+  transition: .15s;
   animation: wiggle .8s infinite;
   clip-path: polygon(0% 40%, 90% 0%, 80% 70%, 25% 100%);
 }
